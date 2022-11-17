@@ -13,7 +13,7 @@
     const callback = (mutationList, observer) => {
         for (const mutation of mutationList) {
             if (mutation.type === 'childList') {
-                console.log('A child node has been added or removed.');
+                // console.log('A child node has been added or removed.');
                 if(document.getElementsByClassName('btC').length >0){
                     console.log("FOUND BTC!");
                     ComposeFound = true;
@@ -26,6 +26,16 @@
                 //     // }
             }
             ComposeFound = false;
+        }
+
+        if(ComposeFound && !document.getElementById("magicBtn")){
+            console.log("MAKING BUTTON!");
+            let x = document.getElementsByClassName("btC")[0];
+            let divnew = document.createElement("div");
+            let myBtn = document.createElement("button");
+            myBtn.textContent = "NNN";
+            myBtn.id = "magicBtn";
+            x.appendChild(myBtn);
         }
 
     };
@@ -44,7 +54,20 @@
             if(document.getElementsByClassName('btC').length >0){
                 console.log("FOUND BTC through mail Tab Found!");
                 ComposeFound = true;
+            }else{
+                ComposeFound = false;
             }
+
+            // if(ComposeFound && !document.getElementById("magicBtn")){
+            //     console.log("MAKING BUTTON!");
+            //     let x = document.getElementsByClassName("btC")[0];
+            //     let divnew = document.createElement("div");
+            //     let myBtn = document.createElement("button");
+            //     myBtn.textContent = "NNN";
+            //     myBtn.id = "magicBtn";
+            //     x.appendChild(myBtn);
+            // }
+
             // newEmailPageLoaded();
             // document.querySelectorAll('div').forEach(
             //     div => div.innerHTML == 'Compose' && div.addEventListener('click', () => console.log('compose is clicked')));

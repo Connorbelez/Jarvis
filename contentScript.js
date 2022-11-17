@@ -28,6 +28,16 @@
             ComposeFound = false;
         }
 
+        if(ComposeFound && !document.getElementById("magicBtn")){
+            console.log("MAKING BUTTON!");
+            let x = document.getElementsByClassName("btC")[0];
+            let divnew = document.createElement("div");
+            let myBtn = document.createElement("button");
+            myBtn.textContent = "NNN";
+            myBtn.id = "magicBtn";
+            x.appendChild(myBtn);
+        }
+
     };
 
 // Create an observer instance linked to the callback function
@@ -48,15 +58,15 @@
                 ComposeFound = false;
             }
 
-            if(ComposeFound && !document.getElementById("magicBtn")){
-                console.log("MAKING BUTTON!");
-                let x = document.getElementsByClassName("btC")[0];
-                let divnew = document.createElement("div");
-                let myBtn = document.createElement("button");
-                myBtn.textContent = "NNN";
-                myBtn.id = "magicBtn";
-                x.appendChild(myBtn);
-            }
+            // if(ComposeFound && !document.getElementById("magicBtn")){
+            //     console.log("MAKING BUTTON!");
+            //     let x = document.getElementsByClassName("btC")[0];
+            //     let divnew = document.createElement("div");
+            //     let myBtn = document.createElement("button");
+            //     myBtn.textContent = "NNN";
+            //     myBtn.id = "magicBtn";
+            //     x.appendChild(myBtn);
+            // }
 
             // newEmailPageLoaded();
             // document.querySelectorAll('div').forEach(

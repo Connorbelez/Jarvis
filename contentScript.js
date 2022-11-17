@@ -1,4 +1,4 @@
-function btnHandler(){
+function gmailbtnHandler(){
     console.log("CLICKED@@@@");
     // let writtingSpaceComp = document.getElementsByClassName("Am Al editable LW-avf tS-tW");
     // let writingSpaceRep = document.getElementsByClassName("Am aO9 Al editable LW-avf tS-tW");
@@ -17,6 +17,26 @@ function btnHandler(){
     }
 
 }
+
+function outLookbtnHandler(){
+    // let writingSpaceRep = document.getElementsByClassName('editorParent_2');
+    let writingSpaceComp2 = document.getElementById("editorParent_2");
+    let writingSpaceComp1 = document.getElementById("editorParent_1");
+    let writingSpaceComp3 = document.getElementById("editorParent_3");
+    //append text to div without innerHTML:
+    // var theDiv = document.getElementById("<ID_OF_THE_DIV>");
+
+
+    if (writingSpaceComp2) {
+        let innerT = writingSpaceComp2;
+        innerT.innerText += "INSHALLA";
+    }
+    if (writingSpaceComp3){
+        let innerT = writingSpaceRep[0];
+        innerT.innerText += "INSHALLA";
+    }
+}
+
 
 function handleGmail(){
     console.log("content loaded FROM HANDLE GMAIL!");
@@ -49,7 +69,7 @@ function handleGmail(){
             let myBtn = document.createElement("button");
             myBtn.textContent = "NNN";
             myBtn.id = "magicBtn";
-            myBtn.addEventListener("click",btnHandler);
+            myBtn.addEventListener("click",gmailbtnHandler);
             x.appendChild(myBtn);
         }
 
@@ -69,7 +89,7 @@ function handleOutlook(){
     console.log("content loaded FROM HANDLE GMAIL!");
     var __webpack_exports__ = {};
 
-    let ComposeFound = false;
+    let ComposeFoundOutlook = false;
     const targetNode = document.querySelector('body');
 
 // Options for the observer (which mutations to observe)
@@ -82,22 +102,23 @@ function handleOutlook(){
                 // console.log('A child node has been added or removed.');
                 if(document.getElementsByClassName('R6yXY CEwXY').length >0){
                     console.log("FOUND R6yXY CEwXY!");
-                    ComposeFound = true;
+                    ComposeFoundOutlook = true;
                     break;
                 }
             }
-            ComposeFound = false;
+            ComposeFoundOutlook = false;
         }
 
-        if(ComposeFound && !document.getElementById("magicBtn")){
+        if(ComposeFoundOutlook && !document.getElementById("magicBtn")){
             console.log("MAKING BUTTON!");
             let x = document.getElementsByClassName("R6yXY CEwXY")[0];
             let divnew = document.createElement("div");
-            let myBtn = document.createElement("button");
-            myBtn.textContent = "NNN";
-            myBtn.id = "magicBtn";
-            myBtn.addEventListener("click",btnHandler);
-            x.appendChild(myBtn);
+            let myBtnOutlook = document.createElement("button");
+            myBtnOutlook.textContent = "NNN";
+            myBtnOutlook.id = "magicBtnOut";
+            myBtnOutlook.addEventListener("click",outLookbtnHandler);
+            divnew.appendChild(myBtnOutlook);
+            x.appendChild(divnew);
         }
 
     };

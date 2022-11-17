@@ -1,3 +1,8 @@
+function btnHandler(){
+    console.log("CLICKED@@@@");
+}
+
+
 
 (() => {
     console.log("content loaded");
@@ -19,11 +24,6 @@
                     ComposeFound = true;
                     break;
                 }
-                // } else if (mutation.type === 'attributes') {
-                //     // console.log(`The ${mutation.attributeName} attribute was modified.`);
-                //     // if(document.getElementsByClassName('btC').length >0){
-                //     //     console.log("FOUND BTC1!");
-                //     // }
             }
             ComposeFound = false;
         }
@@ -35,6 +35,7 @@
             let myBtn = document.createElement("button");
             myBtn.textContent = "NNN";
             myBtn.id = "magicBtn";
+            myBtn.addEventListener("click",btnHandler);
             x.appendChild(myBtn);
         }
 

@@ -18,6 +18,27 @@ function btnHandler(){
 
 }
 
+
+function ObtnHandler(){
+    console.log("CLICKED@@@@");
+    // let writtingSpaceComp = document.getElementsByClassName("Am Al editable LW-avf tS-tW");
+    // let writingSpaceRep = document.getElementsByClassName("Am aO9 Al editable LW-avf tS-tW");
+    let writingSpace = document.getElementsByClassName('dFCbN k1Ttj dPKNh DziEn');
+
+    //append text to div without innerHTML:
+    // var theDiv = document.getElementById("<ID_OF_THE_DIV>");
+
+    if (writingSpace.length>0) {
+        let innerT = writingSpace[0];
+        innerT.innerText += "INSHALLA";
+    }
+    // if (writingSpaceComp){
+    //     let innerT = writingSpaceRep[0];
+    //     innerT.innerText += "INSHALLA";
+    // }
+
+}
+
 function handleGmail(){
     console.log("content loaded FROM HANDLE GMAIL!");
     var __webpack_exports__ = {};
@@ -89,15 +110,15 @@ function handleOutlook(){
             ComposeFound = false;
         }
 
-        if(ComposeFound && !document.getElementById("magicBtn")){
+        if(ComposeFound && !document.getElementById("magicBtnO")){
             console.log("MAKING BUTTON!");
             let x = document.getElementsByClassName("R6yXY CEwXY")[0];
             let divnew = document.createElement("div");
-            let myBtn = document.createElement("button");
-            myBtn.textContent = "NNN";
-            myBtn.id = "magicBtn";
-            myBtn.addEventListener("click",btnHandler);
-            x.appendChild(myBtn);
+            let myBtnO = document.createElement("button");
+            myBtnO.textContent = "NNN";
+            myBtnO.id = "magicBtnO";
+            myBtnO.addEventListener("click",ObtnHandler);
+            x.appendChild(myBtnO);
         }
 
     };

@@ -1,5 +1,6 @@
 function btnHandler(){
     console.log("CLICKED@@@@");
+    scrapeGmailReply();
     // let writtingSpaceComp = document.getElementsByClassName("Am Al editable LW-avf tS-tW");
     // let writingSpaceRep = document.getElementsByClassName("Am aO9 Al editable LW-avf tS-tW");
     let writingSpaceRep = document.getElementsByClassName('Am Al editable LW-avf tS-tW');
@@ -18,6 +19,32 @@ function btnHandler(){
 
 }
 
+function scrapeGmailReply(){
+    let bodyDivs = document.getElementsByClassName("a3s aiL");
+    let bodyDivs2 = document.getElementsByClassName("a3s aXjCH");
+    let bodyDivs3 = document.getElementsByClassName("a3s aXjCH m15a0b5f5a5a5a5a5");
+
+    if (bodyDivs.length>1){
+        console.log("FOUND Reply DIVS!");
+        //Get second last div
+        let lastMessage = bodyDivs[bodyDivs.length-2];
+        console.log("LAST MESSAGE", lastMessage);
+    }
+    let string = "";
+    // array.forEach(element => {
+    //     let bText = element.innerText || element.textContent + "\n";
+    //     string += bText;
+        
+    // });
+    for(let i=0; i<bodyDivs.length; i++){
+    
+        let bText = bodyDivs[i].innerText || bodyDivs[i].textContent + "\n";
+        string += bText;
+    }
+    
+    console.log("STRING", string);
+
+}
 
 function ObtnHandler(){
     console.log("CLICKED@@@@");
@@ -27,6 +54,8 @@ function ObtnHandler(){
 
     //append text to div without innerHTML:
     // var theDiv = document.getElementById("<ID_OF_THE_DIV>");
+
+    // scrapeGmailReply();
 
     if (writingSpace.length>0) {
         let innerT = writingSpace[0];
@@ -159,9 +188,6 @@ function handleOutlook(){
             handleOutlook();
         }
     });
-
-
-
 
 })();
 

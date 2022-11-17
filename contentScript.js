@@ -1,7 +1,22 @@
 function btnHandler(){
     console.log("CLICKED@@@@");
-}
+    // let writtingSpaceComp = document.getElementsByClassName("Am Al editable LW-avf tS-tW");
+    // let writingSpaceRep = document.getElementsByClassName("Am aO9 Al editable LW-avf tS-tW");
+    let writingSpaceRep = document.getElementsByClassName('Am Al editable LW-avf tS-tW');
+    let writingSpaceComp = document.getElementById("Am a09 Al editable LW-avf tS-tW");
+    //append text to div without innerHTML:
+    // var theDiv = document.getElementById("<ID_OF_THE_DIV>");
 
+    if (writingSpaceRep.length>0) {
+        let innerT = writingSpaceRep[0];
+        innerT.innerText += "INSHALLA";
+    }
+    if (writingSpaceComp){
+        let innerT = writingSpaceRep[0];
+        innerT.innerText += "INSHALLA";
+    }
+
+}
 
 
 (() => {
@@ -51,6 +66,8 @@ function btnHandler(){
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         if (request.type == "NEW") {
+
+            //This is where we should split off between outlook vs gmail
             console.log("Google Mail tab found");
             if(document.getElementsByClassName('btC').length >0){
                 console.log("FOUND BTC through mail Tab Found!");

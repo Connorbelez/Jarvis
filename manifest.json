@@ -7,9 +7,18 @@
         "storage",
         "scripting"
     ],
+
     
     "host_permissions": 
         ["https://mail.google.com/mail/*",
+        "https://outlook.live.com/mail/0/",
+        "https://outlook.live.com/mail/0/*",
+        "https://outlook.live.com/mail/*",
+        "https://outlook.live.com/mail/*",
+        "https://outlook.office365.com/mail/*",
+        "https://*.live.com/*",
+        "https://www.outlook.live.com/mail/*",
+        "https://outlook.live.com/*",
         "https://www.google.com/calendar/*",
         "https://www.google.com/contacts/*",
         "https://www.google.com/reader/*",
@@ -19,8 +28,16 @@
     },
     "content_scripts": [
         {
-            "matches": ["https://mail.google.com/mail/*"],
-            "js": ["contentScript.js"]
+            "matches": ["https://mail.google.com/mail/*", 
+                        "https://outlook.live.com/mail/*",
+                        "https://outlook.live.com/mail/0/",
+                        "https://outlook.office365.com/mail/*",
+                        "https://*.live.com/*",
+                        "https://www.outlook.live.com/mail/*",
+                        "https://outlook.live.com/*",
+                        "https://outlook.live.com/mail/0/"],
+            "js": ["contentScript.js"],
+            "run_at": "document_start"
         }
     ],
     "web_accessible_resources": [

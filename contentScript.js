@@ -18,9 +18,8 @@ function btnHandler(){
 
 }
 
-
-(() => {
-    console.log("content loaded");
+function handleGmail(){
+    console.log("content loaded FROM HANDLE GMAIL!");
     var __webpack_exports__ = {};
 
     let ComposeFound = false;
@@ -62,11 +61,24 @@ function btnHandler(){
 // Start observing the target node for configured mutations
     observer.observe(targetNode, config);
 
+}
+
+function handleOutlook(){
+    console.log("content loaded FROM HANDLE OUTLOOK!");
+    console.log("THERE IS MUCH TO DO!");
+}
 
 
+(() => {
+    console.log("CONTENTSCRIPT LOADED!");
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.type == "NEW") {
-
+        let {type, message, tabId} = request;
+        console.log("Message from background script: ", message);
+        console.log("Tab ID: ", tabId);
+        console.log("Type: ", type);
+        if (request.type == "GMAIL") {
+            //handle Gmail:
+            handleGmail();
             //This is where we should split off between outlook vs gmail
             console.log("Google Mail tab found");
             if(document.getElementsByClassName('btC').length >0){
@@ -75,29 +87,10 @@ function btnHandler(){
             }else{
                 ComposeFound = false;
             }
-
-            // if(ComposeFound && !document.getElementById("magicBtn")){
-            //     console.log("MAKING BUTTON!");
-            //     let x = document.getElementsByClassName("btC")[0];
-            //     let divnew = document.createElement("div");
-            //     let myBtn = document.createElement("button");
-            //     myBtn.textContent = "NNN";
-            //     myBtn.id = "magicBtn";
-            //     x.appendChild(myBtn);
-            // }
-
-            // newEmailPageLoaded();
-            // document.querySelectorAll('div').forEach(
-            //     div => div.innerHTML == 'Compose' && div.addEventListener('click', () => console.log('compose is clicked')));
-
-            // document.querySelectorAll('div').forEach(
-            //     div => (div.data-tooltip=="Reply") && div.addEventListener('click', () => alert('reply is clicked')));
-            // let x = document.getElementsByClassName("btC")[0];
-            // let divnew = document.createElement("div")
-            // let myBtn = document.createElement("button")
-            // myBtn.textContent = "NNN"
-            // x.appendChild(myBtn)
-
+          
+        }else if(request.type == "OUTLOOK"){
+            console.log("OUTLOOK FOUND!");
+            handleOutlook();
         }
     });
 

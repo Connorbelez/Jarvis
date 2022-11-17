@@ -66,6 +66,51 @@ function handleGmail(){
 function handleOutlook(){
     console.log("content loaded FROM HANDLE OUTLOOK!");
     console.log("THERE IS MUCH TO DO!");
+    console.log("content loaded FROM HANDLE GMAIL!");
+    var __webpack_exports__ = {};
+
+    let ComposeFound = false;
+    const targetNode = document.querySelector('body');
+
+// Options for the observer (which mutations to observe)
+    const configOutlook = { attributes: true, childList: true, subtree: true };
+
+// Callback function to execute when mutations are observed
+    const callbackOutlook = (mutationList, observer) => {
+        for (const mutation of mutationList) {
+            if (mutation.type === 'childList') {
+                // console.log('A child node has been added or removed.');
+                if(document.getElementsByClassName('R6yXY CEwXY').length >0){
+                    console.log("FOUND R6yXY CEwXY!");
+                    ComposeFound = true;
+                    break;
+                }
+            }
+            ComposeFound = false;
+        }
+
+        if(ComposeFound && !document.getElementById("magicBtn")){
+            console.log("MAKING BUTTON!");
+            let x = document.getElementsByClassName("R6yXY CEwXY")[0];
+            let divnew = document.createElement("div");
+            let myBtn = document.createElement("button");
+            myBtn.textContent = "NNN";
+            myBtn.id = "magicBtn";
+            myBtn.addEventListener("click",btnHandler);
+            x.appendChild(myBtn);
+        }
+
+    };
+
+// Create an observer instance linked to the callback function
+    const observer = new MutationObserver(callbackOutlook);
+
+// Start observing the target node for configured mutations
+    observer.observe(targetNode, configOutlook);
+
+
+
+    // let c = document.getElementsByClassName("R6yXY CEwXY");
 }
 
 

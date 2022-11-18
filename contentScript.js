@@ -1,4 +1,4 @@
-function btnHandler(){
+async function btnHandler(){
     console.log("CLICKED@@@@");
     scrapeGmailReply();
     // let writtingSpaceComp = document.getElementsByClassName("Am Al editable LW-avf tS-tW");
@@ -7,7 +7,8 @@ function btnHandler(){
     let writingSpaceComp = document.getElementById("Am a09 Al editable LW-avf tS-tW");
     //append text to div without innerHTML:
     // var theDiv = document.getElementById("<ID_OF_THE_DIV>");
-
+    let vaff = await postRequest("http://localhost:3000/email/1234", {email: "Hi connor, let me know what you think of these documents, -Dion"});
+    console.log("ASYNC RESPONSE:::: " + vaff);
     if (writingSpaceRep.length>0) {
         let innerT = writingSpaceRep[0];
         innerT.innerText += "INSHALLA";
@@ -18,6 +19,8 @@ function btnHandler(){
     }
 
 }
+
+
 
 function scrapeGmailReply(){
     let bodyDivs = document.getElementsByClassName("a3s aiL");
@@ -67,6 +70,24 @@ function ObtnHandler(){
     // }
 
 }
+
+//make post request to localhost:3000:
+async function postRequest(url, data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log("FROM POST REQUEST:"+json);
+            return json;
+        }
+    };
+    var data = JSON.stringify(data);
+    xhr.send(data);
+}
+
+
 
 function handleGmail(){
     console.log("content loaded FROM HANDLE GMAIL!");

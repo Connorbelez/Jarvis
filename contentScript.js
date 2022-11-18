@@ -7,16 +7,49 @@ async function btnHandler(){
     let writingSpaceComp = document.getElementById("Am a09 Al editable LW-avf tS-tW");
     //append text to div without innerHTML:
     // var theDiv = document.getElementById("<ID_OF_THE_DIV>");
-    let vaff = await postRequest("http://localhost:3000/email/1234", {email: "Hi connor, let me know what you think of these documents, -Dion"});
-    console.log("ASYNC RESPONSE:::: " + vaff);
-    if (writingSpaceRep.length>0) {
-        let innerT = writingSpaceRep[0];
-        innerT.innerText += "INSHALLA";
-    }
-    if (writingSpaceComp){
-        let innerT = writingSpaceRep[0];
-        innerT.innerText += "INSHALLA";
-    }
+    // const resp = await fetch("http://localhost:3000/email/1234", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ email: "Hi connor, let me know what you think of these documents, -Dion" }),
+    // });
+    //let vaff = await postRequest("http://localhost:3000/email/1234", {email: "Hi connor, let me know what you think of these documents, -Dion"});
+    const url = "http://localhost:3000/email/1234";
+    const dta = {email: "Hi connor, let me know what you think of these documents, -Dion"};
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            let text = JSON.stringify(json.result);
+            console.log("FROM POST REQUESTasdf:"+JSON.stringify(json.result));
+            console.log("FROM POST REQUEST:"+xhr.responseText);
+
+            if (writingSpaceRep.length>0) {
+                let innerT = writingSpaceRep[0];
+                innerT.innerText += text;
+            }
+            if (writingSpaceComp){
+                let innerT = writingSpaceRep[0];
+                innerT.innerText += text;
+            }
+            
+        }
+    };
+    var data = JSON.stringify(dta);
+    xhr.send(data);
+
+
+    // if (writingSpaceRep.length>0) {
+    //     let innerT = writingSpaceRep[0];
+    //     innerT.innerText += "INSHALLA";
+    // }
+    // if (writingSpaceComp){
+    //     let innerT = writingSpaceRep[0];
+    //     innerT.innerText += "INSHALLA";
+    // }
 
 }
 

@@ -24,14 +24,14 @@ async function btnHandler(){
             let innerT = writingSpaceRep[0];
             innerT.innerText += textC;
         }
-        if (writingSpaceComp){
-            let innerT = writingSpaceRep[0];
+        else if (writingSpaceComp){
+            let innerT = writingSpaceComp[0];
             innerT.innerText += textC;
         }
 
     }
 
-    if (prevMsg !== ""){
+    else if (prevMsg !== ""){
         const resp = await fetch("http://localhost:3000/email/response", {
             method: "POST",
             headers: {
@@ -47,8 +47,8 @@ async function btnHandler(){
             let innerT = writingSpaceRep[0];
             innerT.innerText += textC;
         }
-        if (writingSpaceComp){
-            let innerT = writingSpaceRep[0];
+        else if (writingSpaceComp){
+            let innerT = writingSpaceComp[0];
             innerT.innerText += textC;
         }
     }

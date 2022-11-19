@@ -1,12 +1,59 @@
 async function btnHandler(){
     console.log("CLICKED@@@@");
-    scrapeGmailReply();
+    let prevMsg = await scrapeGmailReply();
     // let writtingSpaceComp = document.getElementsByClassName("Am Al editable LW-avf tS-tW");
     // let writingSpaceRep = document.getElementsByClassName("Am aO9 Al editable LW-avf tS-tW");
     let writingSpaceRep = document.getElementsByClassName('Am Al editable LW-avf tS-tW');
     let writingSpaceComp = document.getElementById("Am a09 Al editable LW-avf tS-tW");
     //append text to div without innerHTML:
     // var theDiv = document.getElementById("<ID_OF_THE_DIV>");
+
+    let respContent = await scrapeGmailResponse();
+    if (respContent !== ""){
+        const resp = await fetch("http://localhost:3000/email/prompt", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: respContent }),
+        });
+        const dataf = await resp.json();
+        console.log("DATAF", dataf);
+        const textC = dataf.result;
+        if (writingSpaceRep.length>0) {
+            let innerT = writingSpaceRep[0];
+            innerT.innerText += textC;
+        }
+        if (writingSpaceComp){
+            let innerT = writingSpaceRep[0];
+            innerT.innerText += textC;
+        }
+
+    }
+
+    if (prevMsg !== ""){
+        const resp = await fetch("http://localhost:3000/email/response", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: prevMsg }),
+        });
+
+        const dataf = await resp.json();
+        console.log("DATAF", dataf);
+        const textC = dataf.result;
+        if (writingSpaceRep.length>0) {
+            let innerT = writingSpaceRep[0];
+            innerT.innerText += textC;
+        }
+        if (writingSpaceComp){
+            let innerT = writingSpaceRep[0];
+            innerT.innerText += textC;
+        }
+    }
+
+
     // const resp = await fetch("http://localhost:3000/email/1234", {
     //     method: "POST",
     //     headers: {
@@ -14,32 +61,38 @@ async function btnHandler(){
     //     },
     //     body: JSON.stringify({ email: "Hi connor, let me know what you think of these documents, -Dion" }),
     // });
-    //let vaff = await postRequest("http://localhost:3000/email/1234", {email: "Hi connor, let me know what you think of these documents, -Dion"});
-    const url = "http://localhost:3000/email/1234";
-    const dta = {email: "Hi connor, let me know what you think of these documents, -Dion"};
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText);
-            let text = JSON.stringify(json.result);
-            console.log("FROM POST REQUESTasdf:"+JSON.stringify(json.result));
-            console.log("FROM POST REQUEST:"+xhr.responseText);
 
-            if (writingSpaceRep.length>0) {
-                let innerT = writingSpaceRep[0];
-                innerT.innerText += text;
-            }
-            if (writingSpaceComp){
-                let innerT = writingSpaceRep[0];
-                innerT.innerText += text;
-            }
+
+
+    // let text = JSON.stringify(json.result);
+    // console.log("FROM POST REQUESTasdasdfasdfasdff:"+JSON.stringify(json.result));
+
+    //let vaff = await postRequest("http://localhost:3000/email/1234", {email: "Hi connor, let me know what you think of these documents, -Dion"});
+    // const url = "http://localhost:3000/email/1234";
+    // const dta = {email: "Hi connor, let me know what you think of these documents, -Dion"};
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("POST", url, true);
+    // xhr.setRequestHeader('Content-Type', 'application/json');
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //         var json = JSON.parse(xhr.responseText);
+    //         let text = JSON.stringify(json.result);
+    //         console.log("FROM POST REQUESTasdf:"+JSON.stringify(json.result));
+    //         console.log("FROM POST REQUEST:"+xhr.responseText);
+
+    //         if (writingSpaceRep.length>0) {
+    //             let innerT = writingSpaceRep[0];
+    //             innerT.innerText += text;
+    //         }
+    //         if (writingSpaceComp){
+    //             let innerT = writingSpaceRep[0];
+    //             innerT.innerText += text;
+    //         }
             
-        }
-    };
-    var data = JSON.stringify(dta);
-    xhr.send(data);
+    //     }
+    // };
+    // var data = JSON.stringify(dta);
+    // xhr.send(data);
 
 
     // if (writingSpaceRep.length>0) {
@@ -54,8 +107,26 @@ async function btnHandler(){
 }
 
 
+async function scrapeGmailResponse(){
+    let writingSpaceRep = document.getElementsByClassName('Am Al editable LW-avf tS-tW');
+    let writingSpaceComp = document.getElementsByClassName("Am a09 Al editable LW-avf tS-tW");
 
-function scrapeGmailReply(){
+    
+    if (writingSpaceRep.length>0 && writingSpaceRep[0].innerText) {
+        console.log("FOUND RESP");
+        let resp = writingSpaceRep[0].textContent;
+        console.log("RESP:::", resp);
+        return resp;
+    }
+    if (writingSpaceComp.length>0 && writingSpaceComp[0].innerText){
+        console.log("FOUND COMP");
+        let resp = writingSpaceComp.textContent;
+        console.log("RESP1:::", resp);
+        return resp;
+    }
+    return "";
+}
+async function scrapeGmailReply(){
     let bodyDivs = document.getElementsByClassName("a3s aiL");
     let bodyDivs2 = document.getElementsByClassName("a3s aXjCH");
     let bodyDivs3 = document.getElementsByClassName("a3s aXjCH m15a0b5f5a5a5a5a5");
@@ -79,6 +150,7 @@ function scrapeGmailReply(){
     }
     
     console.log("STRING", string);
+    return string;
 
 }
 

@@ -1,12 +1,23 @@
+function addCss(fileName) {
+
+    var head = document.head;
+    var link = document.createElement("link");
+  
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.href = fileName;
+  
+    head.appendChild(link);
+}
+
+//add a second style sheet to the html page:
+
+  
 async function btnHandler(){
     console.log("CLICKED@@@@");
     let prevMsg = await scrapeGmailReply();
-    // let writtingSpaceComp = document.getElementsByClassName("Am Al editable LW-avf tS-tW");
-    // let writingSpaceRep = document.getElementsByClassName("Am aO9 Al editable LW-avf tS-tW");
     let writingSpaceRep = document.getElementsByClassName('Am Al editable LW-avf tS-tW');
     let writingSpaceComp = document.getElementById("Am a09 Al editable LW-avf tS-tW");
-    //append text to div without innerHTML:
-    // var theDiv = document.getElementById("<ID_OF_THE_DIV>");
 
     let respContent = await scrapeGmailResponse();
     if (respContent !== ""){
@@ -53,57 +64,6 @@ async function btnHandler(){
         }
     }
 
-
-    // const resp = await fetch("http://localhost:3000/email/1234", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ email: "Hi connor, let me know what you think of these documents, -Dion" }),
-    // });
-
-
-
-    // let text = JSON.stringify(json.result);
-    // console.log("FROM POST REQUESTasdasdfasdfasdff:"+JSON.stringify(json.result));
-
-    //let vaff = await postRequest("http://localhost:3000/email/1234", {email: "Hi connor, let me know what you think of these documents, -Dion"});
-    // const url = "http://localhost:3000/email/1234";
-    // const dta = {email: "Hi connor, let me know what you think of these documents, -Dion"};
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("POST", url, true);
-    // xhr.setRequestHeader('Content-Type', 'application/json');
-    // xhr.onreadystatechange = function () {
-    //     if (xhr.readyState === 4 && xhr.status === 200) {
-    //         var json = JSON.parse(xhr.responseText);
-    //         let text = JSON.stringify(json.result);
-    //         console.log("FROM POST REQUESTasdf:"+JSON.stringify(json.result));
-    //         console.log("FROM POST REQUEST:"+xhr.responseText);
-
-    //         if (writingSpaceRep.length>0) {
-    //             let innerT = writingSpaceRep[0];
-    //             innerT.innerText += text;
-    //         }
-    //         if (writingSpaceComp){
-    //             let innerT = writingSpaceRep[0];
-    //             innerT.innerText += text;
-    //         }
-            
-    //     }
-    // };
-    // var data = JSON.stringify(dta);
-    // xhr.send(data);
-
-
-    // if (writingSpaceRep.length>0) {
-    //     let innerT = writingSpaceRep[0];
-    //     innerT.innerText += "INSHALLA";
-    // }
-    // if (writingSpaceComp){
-    //     let innerT = writingSpaceRep[0];
-    //     innerT.innerText += "INSHALLA";
-    // }
-
 }
 
 
@@ -133,16 +93,10 @@ async function scrapeGmailReply(){
 
     if (bodyDivs.length>1){
         console.log("FOUND Reply DIVS!");
-        //Get second last div
         let lastMessage = bodyDivs[bodyDivs.length-2];
         console.log("LAST MESSAGE", lastMessage);
     }
     let string = "";
-    // array.forEach(element => {
-    //     let bText = element.innerText || element.textContent + "\n";
-    //     string += bText;
-        
-    // });
     for(let i=0; i<bodyDivs.length; i++){
     
         let bText = bodyDivs[i].innerText || bodyDivs[i].textContent + "\n";
@@ -156,13 +110,7 @@ async function scrapeGmailReply(){
 
 function ObtnHandler(){
     console.log("CLICKED@@@@");
-    // let writtingSpaceComp = document.getElementsByClassName("Am Al editable LW-avf tS-tW");
-    // let writingSpaceRep = document.getElementsByClassName("Am aO9 Al editable LW-avf tS-tW");
     let writingSpace = document.getElementsByClassName('dFCbN k1Ttj dPKNh DziEn');
-
-    //append text to div without innerHTML:
-    // var theDiv = document.getElementById("<ID_OF_THE_DIV>");
-
     // scrapeGmailReply();
 
     if (writingSpace.length>0) {
@@ -225,6 +173,7 @@ function handleGmail(){
             let myBtn = document.createElement("button");
             myBtn.textContent = "NNN";
             myBtn.id = "magicBtn";
+            myBtn.className = "button-17"
             myBtn.addEventListener("click",btnHandler);
             x.appendChild(myBtn);
         }
@@ -291,6 +240,7 @@ function handleOutlook(){
 
 
 (() => {
+    
     console.log("CONTENTSCRIPT LOADED!");
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         let {type, message, tabId} = request;
@@ -298,6 +248,8 @@ function handleOutlook(){
         console.log("Tab ID: ", tabId);
         console.log("Type: ", type);
         if (request.type == "GMAIL") {
+            addCss(chrome.runtime.getURL("assets/style.css"));
+
             //handle Gmail:
             handleGmail();
             //This is where we should split off between outlook vs gmail
